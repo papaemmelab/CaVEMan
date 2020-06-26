@@ -276,7 +276,9 @@ int output_vcf_header(gzFile out, char *tum_bam, char *norm_bam, char *ref_seq_l
 	res = bam_access_sample_name_platform_from_header(tum_bam,tumour_name, tumour_platform);
 	check(res != NULL,"Error fetching tumour sample and platform from bam header.");
 
-	check(strcmp(tumour_platform,normal_platform)==0,"Normal and tumour platforms don't match: '%s' ne '%s'",normal_platform,tumour_platform);
+	// don't complain if platforms are different
+	// check(strcmp(tumour_platform,normal_platform)==0,"Normal and tumour platforms don't match: '%s' ne '%s'",normal_platform,tumour_platform);
+
 	//VCF version (fileformat)
 	int write = gzprintf(out,"##%s=%s\n",VCF_VERSION_KEY,VCF_VERSION_VALUE);
 	check(write>0,"Error writing version.");
